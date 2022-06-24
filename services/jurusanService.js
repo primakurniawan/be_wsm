@@ -36,8 +36,6 @@ exports.getMultiple = async () => {
       return e;
     });
 
-  console.log(nilaiJurusanFilter);
-
   const jurusanAlternatif = [];
 
   nilaiJurusanFilter.forEach((e) => {
@@ -73,6 +71,15 @@ exports.getMultiple = async () => {
     }
   });
 
+  // jurusanAlternatif.forEach((e) => {
+  //   // console.log(e);
+  //   e.kriteriaArray.forEach((k) => {
+  //     console.log(k.subkriteriaArray);
+  //     k.subkriteriaArray.forEach((s) => {
+  //       // console.log(s);
+  //     });
+  //   });
+  // });
   return jurusanAlternatif;
 };
 
@@ -172,6 +179,7 @@ exports.getRankAlternative = async (kriteriaCalon) => {
 };
 
 exports.create = async (nama, id_fakultas, kriteria) => {
+  console.log(nama, id_fakultas, kriteria);
   const jurusanResult = await db.query(`INSERT INTO jurusan(nama, id_fakultas) VALUES ('${nama}',${id_fakultas})`);
 
   const kriteriaStr = Object.entries(kriteria).map(([key, value]) => {
@@ -189,16 +197,17 @@ exports.create = async (nama, id_fakultas, kriteria) => {
   return message;
 };
 
-exports.update = async (id, name, parameters_id) => {
-  await db.query(`UPDATE alternatives SET name='${name}' WHERE id=${id}`);
+exports.update = async (id, nama, id_fakultas, kriteria) => {
+  await db.query(`UPDATE jurusan SET nama='${nama}' WHERE id=${id}`);
 
-  const deleteResult = await db.query(`DELETE FROM alternative_parameter WHERE alternative_id=${parseInt(id)}`);
+  const deleteResult = await db.query(`DELETE FROM nilai_subkriteria_jurusan WHERE id_jurusan=${id}`);
   console.log(deleteResult.affectedRows);
 
-  const parameters = parameters_id.map((e) => {
-    return `(${id},${e})`;
+  const kriteriaStr = Object.entries(kriteria).map(([key, value]) => {
+    return `(${jurusanResult.insertId},${key},${value})`;
   });
-  const result = await db.query(`INSERT INTO alternative_parameter(alternative_id, parameter_id) VALUES ${parameters.join(",")}`);
+
+  const result = await db.query(`INSERT INTO nilai_subkriteria_jurusan(id_jurusan, id_subkriteria, nilai) VALUES ${kriteriaStr.join(",")}`);
 
   let message = "Error in updating alternative";
 
@@ -210,7 +219,7 @@ exports.update = async (id, name, parameters_id) => {
 };
 
 exports.remove = async (id) => {
-  await db.query(`DELETE FROM nilai_kriteria_jurusan WHERE id_jurusan=${id}`);
+  await db.query(`DELETE FROM nilai_subkriteria_jurusan WHERE id_jurusan=${id}`);
 
   const result = await db.query(`DELETE FROM jurusan WHERE id=${id}`);
 

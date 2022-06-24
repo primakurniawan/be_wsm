@@ -4,7 +4,7 @@ const config = {
     host: "localhost",
     user: "root",
     password: "",
-    database: "dss_gadget",
+    database: "dss_jurusan",
   },
   listPerPage: 10,
   multipleStatements: true,

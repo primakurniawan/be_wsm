@@ -2,7 +2,8 @@ const alamatService = require("../services/alamatService");
 
 exports.getAllAlamat = async function (req, res, next) {
   try {
-    const daftarAlamat = await alamatService.getMultiple();
+    const { id_kursus } = req.query;
+    const daftarAlamat = await alamatService.getMultiple(parseInt(id_kursus));
 
     res.status(200).json({
       status: "success",
@@ -52,6 +53,7 @@ exports.getAlamatDetail = async function (req, res, next) {
 exports.createAlamat = async function (req, res, next) {
   try {
     const { id_kursus, nama, alamat, lon, lat } = req.body;
+    console.log(id_kursus, nama, alamat, lon, lat);
     const message = await alamatService.create(id_kursus, nama, alamat, lon, lat);
     res.status(201).json({
       status: "success",
@@ -88,6 +90,21 @@ exports.deleteAlamat = async function (req, res, next) {
     });
   } catch (err) {
     console.error(`Error while deleting Alamat`, err.message);
+    next(err);
+  }
+};
+
+exports.getRute = async function (req, res, next) {
+  try {
+    const { id_kursus, current_location, id_alamat_kursus } = req.query;
+    console.log("req.query", req.query);
+    const data = await alamatService.getRuteTerpendekKursus(parseInt(id_kursus), JSON.parse(current_location), parseInt(id_alamat_kursus));
+    res.status(200).json({
+      status: "success",
+      data,
+    });
+  } catch (err) {
+    console.error(`Error mendapatkan rute`, err.message);
     next(err);
   }
 };

@@ -14,6 +14,37 @@ exports.getAllSubkriteria = async function (req, res, next) {
   }
 };
 
+exports.getAllSubkriteriaDetail = async function (req, res, next) {
+  try {
+    const daftarSubkriteria = await subkriteriaService.getMultiple();
+    const subkriteriaReturn = [];
+    daftarSubkriteria.forEach((e) => {
+      const subkriteria = {
+        id_subkriteria: e.id_subkriteria,
+        nama_subkriteria: e.nama_subkriteria,
+      };
+      const kriteria = {
+        id_kriteria: e.id_kriteria,
+        nama_kriteria: e.nama_kriteria,
+        subkriteria: [subkriteria],
+      };
+      if (subkriteriaReturn[subkriteriaReturn.length - 1]?.id_kriteria === e.id_kriteria) {
+        subkriteriaReturn[subkriteriaReturn.length - 1].subkriteria.push(subkriteria);
+      } else {
+        subkriteriaReturn.push(kriteria);
+      }
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: subkriteriaReturn,
+    });
+  } catch (err) {
+    console.error(`Error while getting subkriteria `, err.message);
+    next(err);
+  }
+};
+
 exports.createSubkriteria = async function (req, res, next) {
   try {
     const { nama, id_kriteria } = req.body;

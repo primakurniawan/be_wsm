@@ -1,8 +1,9 @@
 const kursusService = require("../services/kursusService");
 
 exports.getAllKursus = async function (req, res, next) {
+  const { id_kursus } = req.query;
   try {
-    const daftarKursus = await kursusService.getMultiple();
+    const daftarKursus = await kursusService.getMultiple(id_kursus);
 
     res.status(200).json({
       status: "success",

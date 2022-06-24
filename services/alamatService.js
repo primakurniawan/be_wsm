@@ -2,13 +2,14 @@ const db = require("./db");
 const { emptyOrRows } = require("../helper");
 const config = require("../config");
 var jsgraphs = require("js-graph-algorithms");
-
-exports.getMultiple = async () => {
+const axios = require("axios").default;
+exports.getMultiple = async (id_kursus) => {
   const result = await db.query(`SELECT 
     kursus.id AS id_kursus, alamat_kursus.id AS id_alamat_kursus, kursus.nama AS nama_kursus, alamat_kursus.nama AS nama_alamat_kursus, alamat, lon, lat 
     FROM alamat_kursus
     INNER JOIN kursus ON kursus.id = alamat_kursus.id_kursus
-  `);
+    ${id_kursus ? `WHERE kursus.id = ${id_kursus}` : ""}
+    ORDER BY id_kursus, id_alamat_kursus`);
 
   const data = emptyOrRows(result);
 
@@ -51,8 +52,12 @@ exports.remove = async (id) => {
   return message;
 };
 
-exports.getRuteTerpendekKursus = async (category_id, currentLocation, storeId) => {
-  const rows = await db.query(`SELECT * FROM stores${category_id ? ` WHERE category_id=${category_id}` : ""}`);
+exports.getRuteTerpendekKursus = async (id_kursus, currentLocation, idTujuan) => {
+  console.log(id_kursus, currentLocation, idTujuan);
+  const rows = await db.query(`
+  SELECT * FROM alamat_kursus 
+  INNER JOIN kursus ON kursus.id = alamat_kursus.id_kursus
+  ${id_kursus ? `WHERE id_kursus=${id_kursus}` : ""}`);
   // const iteration = rows.length % 24;
   // const distanceRow = [];
   // for (let i = 0; i < iteration; i++) {}
@@ -68,8 +73,6 @@ exports.getRuteTerpendekKursus = async (category_id, currentLocation, storeId) =
 
   var g = new jsgraphs.WeightedDiGraph(matrix.data.distances.length);
   matrix.data.distances.forEach((distance, i) => {
-    if (i === 0) map[0] = {};
-    else map[rows[i - 1].id] = {};
     distance.map((e, j) => {
       if (i === 0 && j !== 0) g.addEdge(new jsgraphs.Edge(0, rows[j - 1].id, e));
       else if (i !== 0 && j === 0) g.addEdge(new jsgraphs.Edge(rows[i - 1].id, 0, e));
@@ -78,43 +81,16 @@ exports.getRuteTerpendekKursus = async (category_id, currentLocation, storeId) =
   });
   var bf = new jsgraphs.BellmanFord(g, 0);
 
-  console.log(bf.pathTo(storeId));
-  for (var v = 1; v < g.V; ++v) {
-    if (bf.hasPathTo(v)) {
-      var path = bf.pathTo(v);
-      console.log("=====path from 0 to " + v + " start==========");
-      for (var i = 0; i < path.length; ++i) {
-        var e = path[i];
-        console.log(e.from() + " => " + e.to() + ": " + e.weight);
-      }
-      console.log("=====path from 0 to " + v + " end==========");
-      console.log("=====distance: " + bf.distanceTo(v) + "=========");
-    }
+  const pathNode = [0];
+
+  var path = bf.pathTo(idTujuan);
+  for (var i = 0; i < path.length; ++i) {
+    var e = path[i];
+    pathNode.push(e.to());
   }
 
-  const map = {};
-  matrix.data.distances.forEach((distance, i) => {
-    if (i === 0) map[0] = {};
-    else map[rows[i - 1].id] = {};
-    distance.map((e, j) => {
-      if (i === 0 && j !== 0) map[0][rows[j - 1].id] = e;
-      else if (i !== 0 && j === 0) map[rows[i - 1].id][0] = e;
-      else if (i !== 0 && j !== 0 && i !== j) map[rows[i - 1].id][rows[j - 1].id] = e;
-    });
-  });
-
-  var startTime = performance.now();
-  const shortestPath = findShortestPath(map, 0, storeId).map((e) => parseInt(e));
-  var endTime = performance.now();
-  totalRunningTime += endTime - startTime;
-  totalCall += 1;
-  averageRunningTime = totalRunningTime / totalCall;
-
-  console.log(`Call to shortestPath took ${endTime - startTime} milliseconds`);
-  console.log(`Average running time: ${averageRunningTime}`);
-
   const rowRoutes = [];
-  shortestPath.forEach((e, i) => {
+  pathNode.forEach((e, i) => {
     if (e !== 0) rowRoutes.push(rows.filter((row) => row.id === e)[0]);
   });
 

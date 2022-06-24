@@ -32,6 +32,7 @@ exports.getRankAlternative = async function (req, res, next) {
 exports.createAlternative = async function (req, res, next) {
   try {
     const { nama, id_fakultas, kriteria } = req.body;
+    console.log("id_fakultas", id_fakultas);
     const message = await jurusanService.create(nama, id_fakultas, kriteria);
     res.status(201).json({
       status: "success",

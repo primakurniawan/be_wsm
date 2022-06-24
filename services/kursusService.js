@@ -2,8 +2,8 @@ const db = require("./db");
 const { emptyOrRows } = require("../helper");
 const config = require("../config");
 
-exports.getMultiple = async () => {
-  const result = await db.query(`SELECT id, nama FROM kursus`);
+exports.getMultiple = async (id_kursus) => {
+  const result = await db.query(`SELECT id, nama FROM kursus${id_kursus ? ` WHERE id_kursus=${id_kursus}` : ""}`);
 
   const data = emptyOrRows(result);
 
