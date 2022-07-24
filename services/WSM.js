@@ -1,21 +1,23 @@
 function WSM(alternatifArray, subkriteriaCalon) {
-  subkriteriaCalon.forEach((kriteria) => {
-    kriteria.bobot = kriteria.nilai / subkriteriaCalon.reduce((a, b) => a + b.nilai, 0);
+  subkriteriaCalon = subkriteriaCalon.map((subkriteria) => {
+    return {
+      ...subkriteria,
+      bobot: subkriteria.nilai / subkriteriaCalon.reduce((a, b) => a + b.nilai, 0),
+    };
   });
 
   alternatifArray.forEach((alternatif) => {
-    alternatif.kriteriaArray.forEach((subkriteriaAlternatif) => {
-      subkriteriaAlternatif.subkriteriaArray.forEach((subkriteriaAlternatif) => {
+    let skor = 0;
+    alternatif.kriteriaArray.forEach((kriteriaAlternatif) => {
+      kriteriaAlternatif.subkriteriaArray.forEach((subkriteriaAlternatif) => {
         subkriteriaCalon.forEach((subkriteriaCalon) => {
-          if (subkriteriaAlternatif.id_jurusan === subkriteriaCalon.id_jurusan) {
+          if (subkriteriaAlternatif.id_subkriteria == subkriteriaCalon.id_subkriteria) {
             subkriteriaAlternatif.nilai_bobot = subkriteriaCalon.bobot * subkriteriaAlternatif.nilai;
+            skor += subkriteriaAlternatif.nilai_bobot;
           }
         });
       });
-
-      alternatif.kriteriaArray.forEach((subkriteriaAlternatif) => {
-        alternatif.skor = subkriteriaAlternatif.subkriteriaArray.reduce((a, b) => a + b.nilai_bobot, 0);
-      });
+      alternatif.skor = skor;
     });
   });
 
@@ -27,8 +29,6 @@ function WSM(alternatifArray, subkriteriaCalon) {
         rank: i + 1,
       };
     });
-
-  console.log(rank);
 
   return rank;
 }

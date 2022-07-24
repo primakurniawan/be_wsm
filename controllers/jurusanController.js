@@ -47,8 +47,9 @@ exports.createAlternative = async function (req, res, next) {
 exports.updateAlternative = async function (req, res, next) {
   try {
     const { id } = req.params;
-    const { name, parameters_id } = req.body;
-    const message = await jurusanService.update(id, name, parameters_id);
+    const { nama, id_fakultas, parameters_id } = req.body;
+    console.log("id_fakultas", id_fakultas);
+    const message = await jurusanService.update(id, nama, id_fakultas, parameters_id);
     res.status(200).json({
       status: "success",
       message,

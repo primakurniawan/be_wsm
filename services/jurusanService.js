@@ -91,7 +91,7 @@ exports.getRankAlternative = async (kriteriaCalon) => {
   const kriteriaCalon2 = [];
   Object.entries(kriteriaCalon).forEach(([key, value]) => {
     kriteriaCalon2.push({
-      id_kriteria: key,
+      id_subkriteria: key,
       nilai: value,
     });
   });
@@ -128,8 +128,6 @@ exports.getRankAlternative = async (kriteriaCalon) => {
       return e;
     });
 
-  console.log(nilaiJurusanFilter);
-
   const jurusanAlternatif = [];
 
   nilaiJurusanFilter.forEach((e) => {
@@ -165,15 +163,7 @@ exports.getRankAlternative = async (kriteriaCalon) => {
     }
   });
 
-  var startTime = performance.now();
   const rank = WSM(jurusanAlternatif, kriteriaCalon2);
-  var endTime = performance.now();
-  totalRunningTime += endTime - startTime;
-  totalCall += 1;
-  averageRunningTime = totalRunningTime / totalCall;
-
-  console.log(`Call to rank took ${endTime - startTime} milliseconds`);
-  console.log(`Average running time: ${averageRunningTime}`);
 
   return rank;
 };
