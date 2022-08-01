@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2022 at 05:43 PM
+-- Generation Time: Aug 01, 2022 at 08:23 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -35,14 +35,6 @@ CREATE TABLE `alamat_kursus` (
   `lon` double NOT NULL,
   `lat` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `alamat_kursus`
---
-
-INSERT INTO `alamat_kursus` (`id`, `id_kursus`, `nama`, `alamat`, `lon`, `lat`) VALUES
-(2, 2, 'Ganesha Operation Babi', 'Jl. Jendral Sudirman No.63ABC, Binjai, Kec. Binjai Kota, Kota Binjai, Sumatera Utara 20711', 98.48679747805338, 3.613476345362867),
-(9, 2, 'abalabal2', 'asdasda;jfd;lkfjldkg', 98.87879879871231, 3.98798767878);
 
 -- --------------------------------------------------------
 
@@ -94,22 +86,9 @@ CREATE TABLE `jurusan` (
 --
 
 INSERT INTO `jurusan` (`id`, `nama`, `id_fakultas`) VALUES
-(1, 'Ilmu Komputer', 1),
-(2, 'Teknologi Informasi', 1),
-(3, 'Kedokteran', 2),
-(5, 'Agroteknologi', 4),
-(6, 'Agribisnis', 4),
-(7, 'Teknologi Pangan', 4),
-(8, 'Hukum', 1),
-(9, 'Hukum', 1),
-(10, 'Hukum', 1),
-(11, 'Hukum', 1),
-(12, 'Hukum', 1),
-(13, 'undefined', 7),
-(14, 'kedokteran', 2),
-(18, 'undefined', 8),
-(19, 'wqerwqer', 8),
-(20, 'hukum terbaru', 3);
+(36, 'Saintek', 2),
+(37, 'Soshum', 3),
+(38, 'mak jreng', 18);
 
 -- --------------------------------------------------------
 
@@ -127,8 +106,10 @@ CREATE TABLE `kriteria` (
 --
 
 INSERT INTO `kriteria` (`id`, `nama`) VALUES
-(1, 'nilai raport'),
-(2, 'nilai tryout');
+(2, 'Nilai Tryout UTBK'),
+(6, 'Minat & Bakat'),
+(7, 'Uang Kuliat Tunggal '),
+(9, 'Akreditasi');
 
 -- --------------------------------------------------------
 
@@ -140,14 +121,6 @@ CREATE TABLE `kursus` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kursus`
---
-
-INSERT INTO `kursus` (`id`, `nama`) VALUES
-(2, 'Abal - Abal'),
-(4, 'anal2');
 
 -- --------------------------------------------------------
 
@@ -166,99 +139,106 @@ CREATE TABLE `nilai_subkriteria_jurusan` (
 --
 
 INSERT INTO `nilai_subkriteria_jurusan` (`id_jurusan`, `id_subkriteria`, `nilai`) VALUES
-(1, 1, 4),
-(1, 2, 3),
-(1, 3, 2),
-(1, 4, 1),
-(1, 5, 1),
-(1, 6, 1),
-(1, 7, 1),
-(1, 8, 1),
-(1, 9, 5),
-(3, 1, 4),
-(3, 2, 4),
-(3, 3, 4),
-(3, 4, 5),
-(3, 5, 1),
-(3, 6, 1),
-(3, 7, 1),
-(3, 8, 1),
-(3, 9, 5),
-(5, 1, 3),
-(5, 2, 4),
-(5, 3, 5),
-(5, 4, 1),
-(5, 5, 2),
-(5, 6, 1),
-(5, 7, 3),
-(5, 8, 5),
-(5, 9, 3),
-(6, 1, 2),
-(6, 2, 3),
-(6, 3, 2),
-(6, 4, 1),
-(6, 5, 4),
-(6, 6, 5),
-(6, 7, 3),
-(6, 8, 2),
-(6, 9, 4),
-(7, 1, 3),
-(7, 2, 1),
-(7, 3, 3),
-(7, 4, 2),
-(7, 5, 4),
-(7, 6, 3),
-(7, 7, 2),
-(7, 8, 4),
-(7, 9, 2),
-(10, 1, 1),
-(10, 2, 1),
-(10, 3, 1),
-(10, 4, 1),
-(10, 5, 5),
-(10, 6, 5),
-(10, 7, 5),
-(10, 8, 5),
-(10, 9, 5),
-(12, 1, 3),
-(12, 2, 3),
-(12, 3, 3),
-(12, 4, 3),
-(12, 5, 3),
-(12, 6, 3),
-(12, 7, 5),
-(12, 8, 5),
-(12, 9, 5),
-(14, 1, 5),
-(14, 2, 4),
-(14, 3, 4),
-(14, 4, 5),
-(14, 5, 4),
-(14, 6, 3),
-(14, 7, 4),
-(14, 8, 3),
-(14, 9, 4),
-(14, 11, 3),
-(19, 1, 5),
-(19, 2, 3),
-(19, 3, 5),
-(19, 4, 1),
-(19, 5, 1),
-(19, 6, 1),
-(19, 7, 1),
-(19, 8, 3),
-(19, 9, 5),
-(19, 11, 3),
-(20, 1, 1),
-(20, 2, 1),
-(20, 3, 1),
-(20, 4, 1),
-(20, 5, 5),
-(20, 6, 5),
-(20, 7, 5),
-(20, 8, 5),
-(20, 9, 4),
-(20, 11, 2);
+(36, 1, 5),
+(36, 2, 5),
+(36, 3, 5),
+(36, 4, 5),
+(36, 5, 1),
+(36, 6, 1),
+(36, 7, 1),
+(36, 8, 1),
+(36, 9, 1),
+(36, 25, 1),
+(36, 26, 1),
+(36, 27, 1),
+(36, 28, 1),
+(36, 29, 1),
+(36, 30, 1),
+(36, 31, 1),
+(36, 32, 1),
+(36, 33, 1),
+(36, 34, 1),
+(36, 35, 1),
+(36, 36, 1),
+(36, 37, 1),
+(36, 38, 1),
+(36, 39, 5),
+(36, 40, 5),
+(36, 41, 5),
+(36, 42, 5),
+(36, 43, 1),
+(36, 44, 1),
+(36, 45, 1),
+(36, 46, 1),
+(36, 47, 1),
+(36, 48, 1),
+(37, 1, 1),
+(37, 2, 1),
+(37, 3, 1),
+(37, 4, 1),
+(37, 5, 5),
+(37, 6, 5),
+(37, 7, 5),
+(37, 8, 5),
+(37, 9, 1),
+(37, 25, 1),
+(37, 26, 1),
+(37, 27, 1),
+(37, 28, 1),
+(37, 29, 1),
+(37, 30, 1),
+(37, 31, 1),
+(37, 32, 1),
+(37, 33, 1),
+(37, 34, 1),
+(37, 35, 1),
+(37, 36, 1),
+(37, 37, 1),
+(37, 38, 1),
+(37, 39, 1),
+(37, 40, 1),
+(37, 41, 1),
+(37, 42, 1),
+(37, 43, 5),
+(37, 44, 5),
+(37, 45, 5),
+(37, 46, 5),
+(37, 47, 1),
+(37, 48, 1),
+(38, 1, 1),
+(38, 2, 1),
+(38, 3, 1),
+(38, 4, 1),
+(38, 5, 1),
+(38, 6, 1),
+(38, 7, 1),
+(38, 8, 1),
+(38, 9, 3),
+(38, 25, 2),
+(38, 26, 1),
+(38, 27, 1),
+(38, 28, 2),
+(38, 29, 1),
+(38, 30, 3),
+(38, 31, 3),
+(38, 32, 2),
+(38, 33, 2),
+(38, 34, 2),
+(38, 35, 5),
+(38, 36, 4),
+(38, 37, 1),
+(38, 38, 1),
+(38, 39, 1),
+(38, 40, 1),
+(38, 41, 1),
+(38, 42, 1),
+(38, 43, 1),
+(38, 44, 1),
+(38, 45, 1),
+(38, 46, 1),
+(38, 47, 5),
+(38, 48, 1),
+(38, 49, 2);
 
 -- --------------------------------------------------------
 
@@ -279,14 +259,24 @@ CREATE TABLE `parameter` (
 
 INSERT INTO `parameter` (`id`, `nama`, `nilai`, `id_kriteria`) VALUES
 (1, 'nilai 0%-20%', 1, 2),
-(3, 'nilai 40%-60%', 3, 2),
-(4, 'nilai 60%-80%', 4, 2),
-(5, 'nilai 80%-100%', 5, 2),
-(6, 'nilai rata-rata dibawah 76', 1, 1),
-(7, 'nilai rata-rata 76-82', 2, 1),
-(8, 'nilai rata-rata 83-88', 3, 1),
-(9, 'nilai rata-rata 89-94', 4, 1),
-(10, 'nilai rata-rata 95-100', 5, 1);
+(3, 'nilai 21%-40%', 2, 2),
+(4, 'nilai 41%-60%', 3, 2),
+(5, 'nilai 61%-80%', 4, 2),
+(13, 'Berminat', 2, 6),
+(14, 'Tidak Berminat', 1, 6),
+(15, 'nilai 91%-100%', 5, 2),
+(16, 'Sangat Minat', 3, 6),
+(25, 'Rp. 500.000', 8, 7),
+(26, 'Rp. 1.000.000', 7, 7),
+(27, 'Rp. 2.000.000 - Rp. 2.400.000', 6, 7),
+(28, 'Rp. 2.500.000 - Rp. 4.000.000', 5, 7),
+(29, 'Rp. 3.000.000 - Rp. 5.500.000', 4, 7),
+(30, 'Rp. 3.500.000 - Rp. 7.000.000', 3, 7),
+(31, 'Rp. 4.000.000 - Rp. 8.500.000', 2, 7),
+(32, 'Rp. 5.000.000 - Rp. 10.000.000', 1, 7),
+(39, 'Akreditasi C', 1, 9),
+(40, 'Akreditasi B', 2, 9),
+(41, 'Akreditasi A', 3, 9);
 
 -- --------------------------------------------------------
 
@@ -314,7 +304,19 @@ INSERT INTO `subkriteria` (`id`, `nama`, `id_kriteria`) VALUES
 (7, 'Sosiologi', 2),
 (8, 'Ekonomi', 2),
 (9, 'TPS', 2),
-(11, 'UKTul', 1);
+(25, 'Melakukan Perhitungan dan memecahkan rumus', 6),
+(26, 'Menggambar ilustrasi sesuatu/barang', 6),
+(27, 'Pengembanggan teknologi baru ', 6),
+(28, 'Mengekspresikan diri dengan kata-kata, musik, gambar', 6),
+(29, 'Merawat orang yang terluka', 6),
+(30, 'Menggetahui Fauna & Flora', 6),
+(31, 'Berminat dalam Berdagang dan Bernegoisasi', 6),
+(32, 'Membuat dan mengolah data', 6),
+(33, 'Mengikuti Perkembangan Politik ', 6),
+(34, 'Tertarik mengetahui karakter seseorang', 6),
+(35, 'Uang Kuliah Tunggal', 7),
+(49, 'Banyaknya relasi di kampus jurusan tersebut', 8),
+(50, 'Akreditasi Kampus', 9);
 
 --
 -- Indexes for dumped tables
@@ -393,13 +395,13 @@ ALTER TABLE `fakultas`
 -- AUTO_INCREMENT for table `jurusan`
 --
 ALTER TABLE `jurusan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kursus`
@@ -411,13 +413,13 @@ ALTER TABLE `kursus`
 -- AUTO_INCREMENT for table `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
 ALTER TABLE `subkriteria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Constraints for dumped tables
@@ -447,12 +449,6 @@ ALTER TABLE `nilai_subkriteria_jurusan`
 --
 ALTER TABLE `parameter`
   ADD CONSTRAINT `parameter_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`);
-
---
--- Constraints for table `subkriteria`
---
-ALTER TABLE `subkriteria`
-  ADD CONSTRAINT `subkriteria_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
