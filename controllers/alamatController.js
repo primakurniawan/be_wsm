@@ -4,7 +4,6 @@ exports.getAllAlamat = async function (req, res, next) {
   try {
     const { id_kursus } = req.query;
     const daftarAlamat = await alamatService.getMultiple(parseInt(id_kursus));
-
     res.status(200).json({
       status: "success",
       data: daftarAlamat,

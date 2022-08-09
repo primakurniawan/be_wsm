@@ -17,6 +17,11 @@ exports.getMultiple = async (id_kursus) => {
 };
 
 exports.create = async (id_kursus, nama, alamat, lon, lat) => {
+  console.log("id_kursus", id_kursus);
+  console.log("nama", nama);
+  console.log("alamat", alamat);
+  console.log("lon", lon);
+  console.log("lat", lat);
   const result = await db.query(`INSERT INTO alamat_kursus(id_kursus, nama, alamat, lon, lat) VALUES (${id_kursus},'${nama}','${alamat}',${lon},${lat})`);
 
   let message = "Error in creating alamat kursus";
