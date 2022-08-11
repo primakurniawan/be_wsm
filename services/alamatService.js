@@ -58,55 +58,57 @@ exports.remove = async (id) => {
 };
 
 exports.getRuteTerpendekKursus = async (id_kursus, currentLocation, idTujuan) => {
-  console.log(id_kursus, currentLocation, idTujuan);
   const rows = await db.query(`
-  SELECT * FROM alamat_kursus 
+  SELECT alamat_kursus.id, alamat_kursus.nama, alamat_kursus.lon, alamat_kursus.lat FROM alamat_kursus 
   INNER JOIN kursus ON kursus.id = alamat_kursus.id_kursus
-  ${id_kursus ? `WHERE id_kursus=${id_kursus}` : ""}`);
-  // const iteration = rows.length % 24;
-  // const distanceRow = [];
-  // for (let i = 0; i < iteration; i++) {}
+  WHERE id_kursus=${id_kursus}`);
+  rows.unshift({ id: 0, lon: currentLocation[0], lat: currentLocation[1] });
   let storesCoordinates = ``;
   rows.forEach((store) => {
     storesCoordinates += `${store.lon},${store.lat};`;
   });
-  storesCoordinates = storesCoordinates.slice(0, -1);
 
+  storesCoordinates = storesCoordinates.slice(0, -1);
   const matrix = await axios.get(
-    `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${currentLocation[0]},${currentLocation[1]};${storesCoordinates}?access_token=pk.eyJ1IjoicHJpbWFrdXJuaWF3YW4iLCJhIjoiY2wzamVrOHhvMDZyMzNqbzQ1cmt4anJ0ZCJ9.plWxz32egjvGNLpCZL9uVg&annotations=distance,duration`
+    `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${storesCoordinates}?access_token=pk.eyJ1IjoicHJpbWFrdXJuaWF3YW4iLCJhIjoiY2wzamVrOHhvMDZyMzNqbzQ1cmt4anJ0ZCJ9.plWxz32egjvGNLpCZL9uVg&annotations=distance,duration`
   );
 
   var g = new jsgraphs.WeightedDiGraph(matrix.data.distances.length);
   matrix.data.distances.forEach((distance, i) => {
     distance.map((e, j) => {
-      if (i === 0 && j !== 0) g.addEdge(new jsgraphs.Edge(0, rows[j - 1].id, e));
-      else if (i !== 0 && j === 0) g.addEdge(new jsgraphs.Edge(rows[i - 1].id, 0, e));
-      else if (i !== 0 && j !== 0 && i !== j) g.addEdge(new jsgraphs.Edge(rows[i - 1].id, rows[j - 1].id, e));
+      g.addEdge(new jsgraphs.Edge(i, j, e));
     });
   });
   var bf = new jsgraphs.BellmanFord(g, 0);
 
-  const pathNode = [0];
-
-  var path = bf.pathTo(idTujuan);
+  const pathNode = [];
+  var path = bf.pathTo(rows.findIndex((e) => e.id === idTujuan));
   for (var i = 0; i < path.length; ++i) {
     var e = path[i];
-    pathNode.push(e.to());
+    pathNode.push(rows[e.to()]);
   }
 
   const rowRoutes = [];
   pathNode.forEach((e, i) => {
-    if (e !== 0) rowRoutes.push(rows.filter((row) => row.id === e)[0]);
+    rowRoutes.push(e);
   });
 
   let routesCoordinates = ``;
   let routesNames = `awal;`;
-  rowRoutes.forEach((store) => {
+  pathNode.forEach((store) => {
+    console.log("store");
+    console.log(store);
     routesCoordinates += `${store.lon},${store.lat};`;
-    routesNames += `${store.name !== undefined ? store.name.replace(" ", "%20") : "none"};`;
+    routesNames += `${store.nama !== undefined ? store.nama.replace(" ", "%20") : "none"};`;
   });
   routesCoordinates = routesCoordinates.slice(0, -1);
   routesNames = routesNames.slice(0, -1);
+
+  console.log("routesCoordinates");
+  console.log(routesCoordinates);
+  console.log(
+    `https://api.mapbox.com/directions/v5/mapbox/driving/${currentLocation[0]},${currentLocation[1]};${routesCoordinates}?access_token=pk.eyJ1IjoicHJpbWFrdXJuaWF3YW4iLCJhIjoiY2wzamVrOHhvMDZyMzNqbzQ1cmt4anJ0ZCJ9.plWxz32egjvGNLpCZL9uVg&continue_straight=false&overview=simplified&steps=true&language=id&waypoint_names=${routesNames}&geometries=geojson`
+  );
 
   const routes = await axios.get(
     `https://api.mapbox.com/directions/v5/mapbox/driving/${currentLocation[0]},${currentLocation[1]};${routesCoordinates}?access_token=pk.eyJ1IjoicHJpbWFrdXJuaWF3YW4iLCJhIjoiY2wzamVrOHhvMDZyMzNqbzQ1cmt4anJ0ZCJ9.plWxz32egjvGNLpCZL9uVg&continue_straight=false&overview=simplified&steps=true&language=id&waypoint_names=${routesNames}&geometries=geojson`

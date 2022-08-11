@@ -96,7 +96,7 @@ exports.deleteAlamat = async function (req, res, next) {
 exports.getRute = async function (req, res, next) {
   try {
     const { id_kursus, current_location, id_alamat_kursus } = req.query;
-    console.log("req.query", req.query);
+    // console.log("req.query", req.query);
     const data = await alamatService.getRuteTerpendekKursus(parseInt(id_kursus), JSON.parse(current_location), parseInt(id_alamat_kursus));
     res.status(200).json({
       status: "success",

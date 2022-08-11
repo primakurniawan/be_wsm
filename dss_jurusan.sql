@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2022 at 08:23 PM
+-- Generation Time: Aug 11, 2022 at 04:50 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -35,6 +35,29 @@ CREATE TABLE `alamat_kursus` (
   `lon` double NOT NULL,
   `lat` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `alamat_kursus`
+--
+
+INSERT INTO `alamat_kursus` (`id`, `id_kursus`, `nama`, `alamat`, `lon`, `lat`) VALUES
+(10, 5, 'Ganesha Operation Binjai', 'Jl. Jendral Sudirman No.63ABC, Binjai, Kec. Binjai Kota, Kota Binjai, Sumatera Utara 20711', 98.48748413978518, 3.613647665445839),
+(11, 5, 'Ganesha Operation T.B Simatupang Pinang Baris Medan', 'JL. T.B Simatupan Kompler Ruko Perumahan Palem Mas, Sunggal, Kec. Medan Sunggal, Kota Medan, Sumatera Utara 20127', 98.61346319426066, 3.596409981016524),
+(12, 5, 'Ganesha Operation A.R Hakim Medan', 'Jl. Arief Rahman Hakim No.153 C, Sukaramai I, Kec. Medan Area, Kota Medan, Sumatera Utara 20216', 98.70210167151905, 3.5743230585297514),
+(13, 5, 'Ganesha Operation Abdullah Lubis 23 Medan', 'Jl. Abdullah Lubis No.23, Darat, Kec. Medan Baru, Kota Medan, Sumatera Utara 20153', 98.6627088963452, 3.5767307800056316),
+(14, 5, 'Ganesha Operation Tembung Medan', 'Jl. Besar Tembung No.36, Hutan, Kec. Percut Sei Tuan, Kabupaten Deli Serdang, Sumatera Utara 20371', 98.74338593643593, 3.604589750578306),
+(15, 5, 'Ganesha Operation', 'Jl. H.M. Yamin No. 253 C, Sei Kera Hilir I, Kec. Medan Perjuangan, Kota Medan, Sumatera Utara 20222', 98.70357248012026, 3.5993104691677678),
+(16, 5, 'Ganesha Operation Hayam Wuruk Medan', 'Jl. Hayam Wuruk No.7ABC, Petisah Hulu, Kec. Medan Baru, Kota Medan, Sumatera Utara 20153', 98.66461930983625, 3.5815405550566517),
+(17, 5, 'Ganesha Operation K.L. Yos Sudarso 85 A Medan', 'Jl. Kol. Yos Sudarso No.85-A, Glugur Kota, Kec. Medan Bar., Kota Medan, Sumatera Utara 20226', 98.67331751169054, 3.6128167401687694),
+(18, 5, 'Ganesha Operation Kapten Muslim 72 Medan', 'Komplek Griya Riatur Indah, JL. KAPTEN MUSLIM KOMPLEK GRIYA RIATUR INDAH BLOK A. 72 A, Helvetia Tim., Kec. Medan Helvetia, Kota Medan, Sumatera Utara 20117', 98.64535775401784, 3.6067838642875873),
+(19, 5, 'Ganesha Operation Karya Wisata Medan', 'Jalan Karya Wisata No.38 CD, Pangkalan Masyhur, Kec. Medan Johor, Kota Medan, Sumatera Utara 20144', 98.66283796750882, 3.5379359652272147),
+(20, 5, 'Ganesha Operation MH.Thamrin Medan', 'JL. M.H Thamrin Simpang, Jl. Malaka No.101, Pandau Hilir, Kec. Medan Perjuangan, Kota Medan, Sumatera Utara 20232', 98.68897355216365, 3.593361422708376),
+(21, 5, 'Lembaga Bimbingan Belajar Ganesha Operation Marelan', 'Jl. Marelan Raya No.146, Rengas Pulau, Kec. Medan Marelan, Kota Medan, Sumatera Utara 20255', 98.65892465401794, 3.7041509257936394),
+(22, 5, 'Ganesha Operation Pancing Medan', 'Jl. Williem Iskandar No.106, Bantan Tim., Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222', 98.70572193492477, 3.6083711072542077),
+(23, 5, 'Ganesha Operation Panglima Denai Medan', 'Jl. Panglima Denai No.132 D, A M P L A S, Kec. Medan Amplas, Kota Medan, Sumatera Utara 20229', 98.71515072927328, 3.55068295523705),
+(24, 5, 'Ganesha Operation Setia Budi 121-A Medan', 'Jl. Setia Budi No.121 A, Tj. Sari, Kec. Medan Selayang, Kota Medan, Sumatera Utara 20132', 98.63462483867255, 3.5583129441805563),
+(25, 5, 'Ganesha Operation Sisingamangaraja 365 A-C Medan', 'Jl. Sisingamangaraja No.365B, Siti Rejo I, Kec. Medan Kota, Kota Medan, Sumatera Utara 20216', 98.69521163867249, 3.554758936730469),
+(26, 5, 'Ganesha Operation T.B Simatupang Pinang Baris Medan', 'JL. T.B Simatupan Kompler Ruko Perumahan Palem Mas, Sunggal, Kec. Medan Sunggal, Kota Medan, Sumatera Utara 20127', 98.61206843867258, 3.588229253485552);
 
 -- --------------------------------------------------------
 
@@ -81,15 +104,6 @@ CREATE TABLE `jurusan` (
   `id_fakultas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `jurusan`
---
-
-INSERT INTO `jurusan` (`id`, `nama`, `id_fakultas`) VALUES
-(36, 'Saintek', 2),
-(37, 'Soshum', 3),
-(38, 'mak jreng', 18);
-
 -- --------------------------------------------------------
 
 --
@@ -122,6 +136,13 @@ CREATE TABLE `kursus` (
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `kursus`
+--
+
+INSERT INTO `kursus` (`id`, `nama`) VALUES
+(5, 'Ganesha Operation');
+
 -- --------------------------------------------------------
 
 --
@@ -133,112 +154,6 @@ CREATE TABLE `nilai_subkriteria_jurusan` (
   `id_subkriteria` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `nilai_subkriteria_jurusan`
---
-
-INSERT INTO `nilai_subkriteria_jurusan` (`id_jurusan`, `id_subkriteria`, `nilai`) VALUES
-(36, 1, 5),
-(36, 2, 5),
-(36, 3, 5),
-(36, 4, 5),
-(36, 5, 1),
-(36, 6, 1),
-(36, 7, 1),
-(36, 8, 1),
-(36, 9, 1),
-(36, 25, 1),
-(36, 26, 1),
-(36, 27, 1),
-(36, 28, 1),
-(36, 29, 1),
-(36, 30, 1),
-(36, 31, 1),
-(36, 32, 1),
-(36, 33, 1),
-(36, 34, 1),
-(36, 35, 1),
-(36, 36, 1),
-(36, 37, 1),
-(36, 38, 1),
-(36, 39, 5),
-(36, 40, 5),
-(36, 41, 5),
-(36, 42, 5),
-(36, 43, 1),
-(36, 44, 1),
-(36, 45, 1),
-(36, 46, 1),
-(36, 47, 1),
-(36, 48, 1),
-(37, 1, 1),
-(37, 2, 1),
-(37, 3, 1),
-(37, 4, 1),
-(37, 5, 5),
-(37, 6, 5),
-(37, 7, 5),
-(37, 8, 5),
-(37, 9, 1),
-(37, 25, 1),
-(37, 26, 1),
-(37, 27, 1),
-(37, 28, 1),
-(37, 29, 1),
-(37, 30, 1),
-(37, 31, 1),
-(37, 32, 1),
-(37, 33, 1),
-(37, 34, 1),
-(37, 35, 1),
-(37, 36, 1),
-(37, 37, 1),
-(37, 38, 1),
-(37, 39, 1),
-(37, 40, 1),
-(37, 41, 1),
-(37, 42, 1),
-(37, 43, 5),
-(37, 44, 5),
-(37, 45, 5),
-(37, 46, 5),
-(37, 47, 1),
-(37, 48, 1),
-(38, 1, 1),
-(38, 2, 1),
-(38, 3, 1),
-(38, 4, 1),
-(38, 5, 1),
-(38, 6, 1),
-(38, 7, 1),
-(38, 8, 1),
-(38, 9, 3),
-(38, 25, 2),
-(38, 26, 1),
-(38, 27, 1),
-(38, 28, 2),
-(38, 29, 1),
-(38, 30, 3),
-(38, 31, 3),
-(38, 32, 2),
-(38, 33, 2),
-(38, 34, 2),
-(38, 35, 5),
-(38, 36, 4),
-(38, 37, 1),
-(38, 38, 1),
-(38, 39, 1),
-(38, 40, 1),
-(38, 41, 1),
-(38, 42, 1),
-(38, 43, 1),
-(38, 44, 1),
-(38, 45, 1),
-(38, 46, 1),
-(38, 47, 5),
-(38, 48, 1),
-(38, 49, 2);
 
 -- --------------------------------------------------------
 
@@ -383,7 +298,7 @@ ALTER TABLE `subkriteria`
 -- AUTO_INCREMENT for table `alamat_kursus`
 --
 ALTER TABLE `alamat_kursus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `fakultas`
@@ -407,7 +322,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `kursus`
 --
 ALTER TABLE `kursus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `parameter`
@@ -436,19 +351,6 @@ ALTER TABLE `alamat_kursus`
 --
 ALTER TABLE `jurusan`
   ADD CONSTRAINT `jurusan_ibfk_1` FOREIGN KEY (`id_fakultas`) REFERENCES `fakultas` (`id`);
-
---
--- Constraints for table `nilai_subkriteria_jurusan`
---
-ALTER TABLE `nilai_subkriteria_jurusan`
-  ADD CONSTRAINT `nilai_subkriteria_jurusan_ibfk_1` FOREIGN KEY (`id_subkriteria`) REFERENCES `subkriteria` (`id`),
-  ADD CONSTRAINT `nilai_subkriteria_jurusan_ibfk_2` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id`);
-
---
--- Constraints for table `parameter`
---
-ALTER TABLE `parameter`
-  ADD CONSTRAINT `parameter_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
