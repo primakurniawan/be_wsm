@@ -36,7 +36,8 @@ function WSM(alternatifArray, subkriteriaCalon) {
         ...e,
         rank: i + 1,
       };
-    });
+    })
+    .slice(0, 2);
 
   return rank;
 }
